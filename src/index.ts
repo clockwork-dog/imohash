@@ -41,6 +41,8 @@ export async function hashFile(
       sampleSize,
       size - sampleSize,
     );
+    // Close the file handler
+    await fileHandle.close();
   }
 
   // Create the hash from the data we've read. Annoyingly the library returns this as a hex
