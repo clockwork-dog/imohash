@@ -14,7 +14,12 @@ or
 
 ## Usage
 
-TODO: Fill in usage description
+```javascript
+import { hashFile } from "imohash";
+
+const hash = await hashFile("/tmp/path/to/file");
+const hashInHex = hash.toString("hex");
+```
 
 ## Uses
 
