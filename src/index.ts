@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import mmh3 from "murmurhash3-ts";
+import mmh3 from "murmurhash3js-revisited";
 import varint from "varint";
 
 const DEFAULT_SAMPLE_THRESHOLD = 128 * 1024; // 128KB
@@ -27,45 +27,34 @@ export async function hashFile(
   if (size < sampleThreshold || sampleSize < 1 || size < 4 * sampleSize) {
     data = await fs.promises.readFile(filePath);
   } else {
+    // Create a buffer to write into
+    const buffer = Buffer.alloc(sampleSize * 3);
+    data = buffer;
     // Open the file for reading
     const fileHandle = await fs.promises.open(filePath, "r");
     // Read the first, middle, and end chunks of the given sample size
-    const startSample = await fileHandle.read(
-      Buffer.alloc(sampleSize),
-      0,
-      sampleSize,
-      0,
-    );
-    const middleSample = await fileHandle.read(
-      Buffer.alloc(sampleSize),
-      0,
-      sampleSize,
-      Math.floor(size / 2),
-    );
-    const endSample = await fileHandle.read(
-      Buffer.alloc(sampleSize),
-      0,
+    await fileHandle.read(buffer, 0, sampleSize, 0);
+    await fileHandle.read(buffer, sampleSize, sampleSize, Math.floor(size / 2));
+    await fileHandle.read(
+      buffer,
+      sampleSize * 2,
       sampleSize,
       size - sampleSize,
     );
-    // Combine these into a single Uint8Array
-    data = Buffer.concat([
-      startSample.buffer,
-      middleSample.buffer,
-      endSample.buffer,
-    ]);
   }
 
-  // Create the hash from the data we've read
-  const hash = mmh3.x64.hash128(data);
+  // Create the hash from the data we've read. Annoyingly the library returns this as a hex
+  // string, but we want it to be a Uint8Array so we can combine it with the encoded size
+  const hashHexString = mmh3.x64.hash128(data);
+  const hash = Buffer.from(hashHexString, "hex");
 
   // Encode the size of the file using the varint protobuf algorithm
   // https://protobuf.dev/programming-guides/encoding/#varints
   const encodedSize = varint.encode(size);
 
-  // Combine these and return as a Uint8Array
+  // Combine these and return as an ArrayBuffer
   return Buffer.concat([
     Buffer.from(encodedSize),
-    hash.slice(encodedSize.length),
+    hash.subarray(encodedSize.length),
   ]);
 }

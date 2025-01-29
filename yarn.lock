@@ -604,6 +604,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/murmurhash3js-revisited@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@types/murmurhash3js-revisited@npm:3.0.3"
+  checksum: 10c0/6d604012f7dc6c4a7352cdfefebd301f0d1d525459bcff649fc63c6a715729db8ac0944425de9efbff4a05be9ebbc0eedae39886a1a88687ed1607dcc5d9ee5f
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*, @types/node@npm:^22.12.0":
   version: 22.12.0
   resolution: "@types/node@npm:22.12.0"
@@ -1693,6 +1700,7 @@ __metadata:
   resolution: "imohash@workspace:."
   dependencies:
     "@eslint/js": "npm:^9.19.0"
+    "@types/murmurhash3js-revisited": "npm:^3.0.3"
     "@types/node": "npm:^22.12.0"
     "@types/varint": "npm:^6.0.3"
     eslint: "npm:^9.19.0"
@@ -1700,7 +1708,7 @@ __metadata:
     eslint-plugin-prettier: "npm:^5.2.3"
     globals: "npm:^15.14.0"
     memfs: "npm:^4.17.0"
-    murmurhash3-ts: "npm:^0.1.11"
+    murmurhash3js-revisited: "npm:^3.0.0"
     prettier: "npm:^3.4.2"
     tsup: "npm:^8.3.6"
     typescript: "npm:^5.7.3"
@@ -2088,10 +2096,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"murmurhash3-ts@npm:^0.1.11":
-  version: 0.1.11
-  resolution: "murmurhash3-ts@npm:0.1.11"
-  checksum: 10c0/0155d9932ae3b3384bfa260fd4d6030a9f8fd54ecc2b6ef376db0814694f62c7ec4af9bcd453f1f9c65bd84e40defb8aa5efd04131a2aa6dd8288643a611907f
+"murmurhash3js-revisited@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "murmurhash3js-revisited@npm:3.0.0"
+  checksum: 10c0/53e14df6b123f1ff402952eaf51caa5e803316fbaa176b13cc522efa1d5261156319f0d2d87ba9f67dbc9b4e00f72296b975e1b92643faf88b8a8a8725a58e5f
   languageName: node
   linkType: hard
 
