@@ -16,7 +16,7 @@ export async function hashFile(
     sampleThreshold = DEFAULT_SAMPLE_THRESHOLD,
     sampleSize = DEFAULT_SAMPLE_SIZE,
   }: HashFileOptions = {},
-): Promise<Buffer<ArrayBuffer>> {
+): Promise<Buffer> {
   // Get file size from file object
   const { size } = await fs.promises.stat(filePath);
 
